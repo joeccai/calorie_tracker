@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=mysql+pymysql://root:password@db/calorie_tracker
+      - SES_SMTP_USERNAME=your_ses_smtp_username
+      - SES_SMTP_PASSWORD=your_ses_smtp_password
+    volumes:
+      - .:/app
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: calorie_tracker
+    ports:
+      - "3306:3306"
